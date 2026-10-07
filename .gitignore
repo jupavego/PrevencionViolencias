@@ -5,3 +5,9 @@ _t_*.png
 _index_backup.html
 Thumbs.db
 ~$*
+
+.vercel
+.env*
+.env*.local
+.env
+node_modules/
