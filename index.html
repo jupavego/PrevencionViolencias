@@ -76,9 +76,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .flower{position:absolute;bottom:5vh;z-index:4;width:26px;transform-origin:50% 100%;animation:sway 4.5s ease-in-out infinite;pointer-events:none}
 @keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 
-.reportb{position:fixed;right:2vw;bottom:2.2vh;z-index:9;display:flex;align-items:center;gap:9px;background:#e0507c;color:#fff;border-radius:999px;padding:11px 20px 11px 14px;
+.reportb{position:fixed;left:50%;top:2.4vh;transform:translateX(-50%);z-index:9;display:flex;align-items:center;gap:9px;background:#e0507c;color:#fff;border-radius:999px;padding:11px 20px 11px 14px;
   font-family:'Baloo 2','Nunito',sans-serif;font-weight:800;font-size:clamp(14px,1.25vw,18px);box-shadow:0 7px 0 rgba(120,20,60,.28);transition:transform .2s}
-.reportb:hover,.reportb:focus-visible{transform:translateY(-3px) scale(1.04)}
+.reportb:hover,.reportb:focus-visible{transform:translateX(-50%) translateY(-2px) scale(1.04)}
 .reportb svg{width:24px;height:24px}
 /* pasto y bichito */
 .grass{position:absolute;z-index:4;pointer-events:none;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite}
@@ -168,7 +168,7 @@ canvas#fx{position:fixed;inset:0;z-index:80;pointer-events:none}
 
 @media (max-width:760px){
   .sun{display:none}
-  .reportb{right:10px;bottom:10px;padding:9px 14px 9px 11px;font-size:13px}.reportb span small{display:none}
+  .reportb{left:auto;right:10px;top:14px;transform:none;padding:8px 13px 8px 10px;font-size:13px}.reportb:hover,.reportb:focus-visible{transform:scale(1.04)}.reportb span small{display:none}.reportb svg{width:20px;height:20px}
   .stars{left:10px!important;transform:none!important}
   .stars{position:fixed;right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:10px;z-index:8}
   .title h1{font-size:clamp(30px,9.4vw,46px)}
