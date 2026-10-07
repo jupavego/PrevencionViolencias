@@ -121,6 +121,7 @@ def page(body, ch_roman):
     return f'''<!doctype html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=816">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>Capítulo {ch_roman} · Prevención de violencias en primera infancia</title>
 <style>{CSS}</style></head>
 <body>{sprite()}
