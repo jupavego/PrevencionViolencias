@@ -31,7 +31,7 @@ def html():
   <img class="l1" src="img/logo-icbf.png" alt="ICBF Bienestar Familiar">
   <div class="sep"></div>
   <img class="l2" src="img/logo-bello.png" alt="Alcaldía de Bello">
-  <div class="org"><b>Regional Antioquia</b>Prevención de violencias · Primera infancia</div>
+  <div class="org"><div class="orgrow"><b>Regional Antioquia</b><i class="vbar"></i><b>CZ Aburrá Norte</b></div>Prevención de violencias · Primera infancia</div>
 </div>
 <div class="ttl" style="width:500px">
   <span class="chip">GUÍA RÁPIDA · 5 CAPÍTULOS</span>

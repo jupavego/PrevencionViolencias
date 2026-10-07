@@ -67,7 +67,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 /* ---------- Colinas y niños ---------- */
 .hills{position:absolute;left:0;right:0;bottom:0;width:100%;height:36vh;z-index:3;pointer-events:none}
-.kid{position:absolute;z-index:4;bottom:1.5vh;width:clamp(70px,9.5vw,138px);filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 8px 6px rgba(22,66,74,.22));
+.kid{--kw:clamp(70px,9.5vw,138px);position:absolute;z-index:4;bottom:1.5vh;width:var(--kw);filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 8px 6px rgba(22,66,74,.22));
   transform-origin:50% 100%;animation:hop 5s ease-in-out infinite;cursor:pointer}
 .kid:hover{animation:hopfast .5s ease-in-out 2}
 @keyframes hop{0%,100%{transform:translateY(0) rotate(0)}45%{transform:translateY(-6px) rotate(-1deg)}}
@@ -75,6 +75,17 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .flower{position:absolute;bottom:5vh;z-index:4;width:26px;transform-origin:50% 100%;animation:sway 4.5s ease-in-out infinite;pointer-events:none}
 @keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 
+/* pasto y bichito */
+.grass{position:absolute;z-index:4;pointer-events:none;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite}
+#critter{position:absolute;z-index:6;left:0;bottom:0;width:0;height:0;pointer-events:none}
+#critter svg{position:absolute;left:-40px;bottom:0;width:80px;height:60px;overflow:visible;opacity:0;transition:opacity .6s}
+#critter svg.on{opacity:1}
+.cat .seg{animation:crawl 1.1s ease-in-out infinite}
+@keyframes crawl{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.wing{transform-origin:40px 30px;animation:flapw .7s ease-in-out infinite alternate}
+@keyframes flapw{to{transform:scaleX(.45)}}
+.chr{transform-origin:40px 10px;animation:swing 3s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 /* ---------- Globos ---------- */
 #route{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
 #route path{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-dasharray:1 14;animation:dash 3.2s linear infinite;opacity:.95}
@@ -156,7 +167,7 @@ canvas#fx{position:fixed;inset:0;z-index:80;pointer-events:none}
   .title h1{font-size:clamp(30px,9.4vw,46px)}
   .title p{font-size:12px;padding:0 4vw}
   .hint{bottom:auto;font-size:12.5px;padding:7px 14px;white-space:nowrap}
-  .kid{width:clamp(66px,20vw,104px)}
+  .kid{--kw:clamp(66px,20vw,104px)}
   .tag b{font-size:13px}.tag small{font-size:11.5px}
   .nav{top:auto;bottom:12px;width:46px;border-width:4px}
   .dock{bottom:14px;padding:5px 9px;gap:4px}.seg{width:26px;height:26px;font-size:12px}
@@ -217,6 +228,30 @@ canvas#fx{position:fixed;inset:0;z-index:80;pointer-events:none}
     <path d="M0 270Q360 210 760 262T1440 244V320H0Z" fill="#4aa63a"/>
   </svg>
   <div id="ground"></div>
+  <div id="critter" aria-hidden="true">
+    <svg class="cat" viewBox="0 0 80 60"><g>
+      <g fill="#7ccf4a" stroke="#4a9a2a" stroke-width="1.5">
+        <circle class="seg" style="animation-delay:-.9s" cx="14" cy="46" r="8"/><circle class="seg" style="animation-delay:-.7s" cx="26" cy="45" r="8.5"/>
+        <circle class="seg" style="animation-delay:-.5s" cx="38" cy="45" r="9"/><circle class="seg" style="animation-delay:-.3s" cx="50" cy="45" r="8.5"/>
+      </g>
+      <circle class="seg" cx="63" cy="43" r="10" fill="#f2c94c" stroke="#c9a02c" stroke-width="1.5"/>
+      <circle cx="66" cy="41" r="2.2" fill="#16424a"/><circle cx="67" cy="40.4" r=".7" fill="#fff"/>
+      <path d="M60 33q-3-8-8-9M66 33q2-8 7-10" stroke="#16424a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M64 47q3 2 6 0" stroke="#16424a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <g stroke="#4a9a2a" stroke-width="2" stroke-linecap="round"><path d="M16 53v4M28 53v4M40 54v4M52 53v4"/></g>
+    </g></svg>
+    <svg class="pup" viewBox="0 0 80 60"><path d="M40 0v10" stroke="#8a6b3a" stroke-width="2"/>
+      <g class="chr"><ellipse cx="40" cy="30" rx="11" ry="20" fill="#8fd16a" stroke="#4a9a2a" stroke-width="2"/>
+      <path d="M31 24q9 4 18 0M30 33q10 4 20 0M32 42q8 4 16 0" stroke="#4a9a2a" stroke-width="1.5" fill="none"/>
+      <circle cx="40" cy="22" r="1.6" fill="#f2c94c"/><circle cx="40" cy="30" r="1.6" fill="#f2c94c"/><circle cx="40" cy="38" r="1.6" fill="#f2c94c"/></g></svg>
+    <svg class="bf" viewBox="0 0 80 60">
+      <g class="wing"><path d="M40 30C30 6 8 4 6 20c-2 14 14 20 34 10z" fill="#f58a2d" stroke="#c4621a" stroke-width="1.5"/><path d="M40 32C32 50 14 56 12 44c-1-8 12-14 28-12z" fill="#f6b21a" stroke="#c4621a" stroke-width="1.5"/>
+      <circle cx="20" cy="20" r="4" fill="#fff" opacity=".85"/></g>
+      <g class="wing"><path d="M40 30C50 6 72 4 74 20c2 14-14 20-34 10z" fill="#e0507c" stroke="#a82e57" stroke-width="1.5"/><path d="M40 32C48 50 66 56 68 44c1-8-12-14-28-12z" fill="#f58a2d" stroke="#c4621a" stroke-width="1.5"/>
+      <circle cx="60" cy="20" r="4" fill="#fff" opacity=".85"/></g>
+      <ellipse cx="40" cy="31" rx="3" ry="12" fill="#3a2a4a"/><circle cx="40" cy="17" r="3.4" fill="#3a2a4a"/>
+      <path d="M39 15q-4-9-9-9M41 15q4-9 9-9" stroke="#3a2a4a" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+  </div>
 </div>
 
 <!-- Visor -->
@@ -353,15 +388,48 @@ addEventListener('resize',function(){layout();if(viewer.classList.contains('open
     im.style.left=k[1]+'%';im.style.animationDelay=(-k[2])+'s';im.style.bottom=(1+((k[1]*7)%4))+'vh';
     im.addEventListener('click',function(e){burst(e.clientX,e.clientY,26)});g.appendChild(im);
   });
-  var cols=['#ef5b5b','#f6b21a','#e0507c','#8a63d2','#2a9fd8'];
-  for(var i=0;i<16;i++){
-    var s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 26 44');s.setAttribute('class','flower');
-    var c=cols[i%cols.length];
-    s.innerHTML='<path d="M13 20v24" stroke="#2f8f3a" stroke-width="3" stroke-linecap="round"/><path d="M13 36q-8-2-9-9 7 0 9 9z" fill="#3aa845"/>'+
+  var cols=['#ef5b5b','#f6b21a','#e0507c','#8a63d2','#2a9fd8'],n=0;
+  function flower(left,bottom,w,flip){
+    var f=document.createElementNS('http://www.w3.org/2000/svg','svg');f.setAttribute('viewBox','0 0 26 44');f.setAttribute('class','flower');
+    var c=cols[n++%cols.length];
+    f.innerHTML='<path d="M13 20v24" stroke="#2f8f3a" stroke-width="3" stroke-linecap="round"/><path d="M13 36q-8-2-9-9 7 0 9 9z" fill="#3aa845"/>'+
       '<g fill="'+c+'"><circle cx="13" cy="6" r="5"/><circle cx="20" cy="12" r="5"/><circle cx="6" cy="12" r="5"/><circle cx="17" cy="18" r="5"/><circle cx="9" cy="18" r="5"/></g><circle cx="13" cy="12" r="4" fill="#ffe05a"/>';
-    s.style.left=(i*6.4+1.5+(i%3))+'%';s.style.bottom=(3.4+((i*13)%7)*.9)+'vh';s.style.animationDelay=(-(i%5)*.5)+'s';
-    s.style.width=(20+(i%4)*4)+'px';g.appendChild(s);
+    f.style.left=left;f.style.bottom=bottom;f.style.width=w+'px';f.style.animationDelay=(-(n%5)*.7)+'s';f.style.animationDuration='5s';
+    if(flip)f.style.transform='scaleX(-1)';g.appendChild(f);
   }
+  function tuft(left,bottom,w){
+    var t=document.createElementNS('http://www.w3.org/2000/svg','svg');t.setAttribute('viewBox','0 0 40 26');t.setAttribute('class','grass');
+    t.innerHTML='<path d="M4 26C6 14 6 8 4 2c6 5 9 12 9 24M14 26C14 12 18 6 22 0c0 8 1 16-2 26M24 26c0-10 4-16 12-20-3 6-3 14-4 20" fill="#3c9a35" stroke="#2f8a2c" stroke-width="1" stroke-linejoin="round"/>';
+    t.style.left=left;t.style.bottom=bottom;t.style.width=w+'px';t.style.animationDelay=(-Math.random()*4)+'s';g.appendChild(t);
+  }
+  ks.forEach(function(k,idx){
+    var b=(1+((k[1]*7)%4));
+    flower('calc('+k[1]+'% - 20px)',(b+.4)+'vh',22+(idx%2)*4,false);
+    flower('calc('+k[1]+'% + var(--kw) + 4px)',(b+.4)+'vh',22+((idx+1)%2)*4,true);
+    tuft('calc('+k[1]+'% - 34px)',(b-.3)+'vh',38);
+    tuft('calc('+k[1]+'% + var(--kw) - 4px)',(b-.3)+'vh',44);
+  });
+  [11,28,45,63,79,94].forEach(function(x,i){tuft(x+'%',(2+(i%3)*.8)+'vh',30)});
+})();
+
+/* ---- Oruga que se vuelve mariposa mientras cruza la pantalla ---- */
+(function(){
+  var box=$('#critter');if(!box)return;
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches){box.style.display='none';return}
+  var cat=box.querySelector('.cat'),pup=box.querySelector('.pup'),bf=box.querySelector('.bf');
+  var DUR=70000,t0=performance.now();
+  function ease(x){return x*x*(3-2*x)}
+  function frame(now){
+    var t=((now-t0)%DUR)/DUR,W=box.parentNode.clientWidth,base=Math.max(14,innerHeight*.045);
+    var x=-60+t*(W+120),y=base,rot=0;
+    var ph=t<.42?'cat':t<.56?'pup':'bf';
+    if(ph==='pup'){y=base+30}
+    if(ph==='bf'){var k=(t-.56)/.44;y=base+30+ease(Math.min(1,k*1.3))*innerHeight*.26+Math.sin(k*18)*10;rot=Math.sin(k*18)*6}
+    box.style.transform='translate('+x+'px,'+(-y)+'px) rotate('+rot+'deg)';
+    cat.classList.toggle('on',ph==='cat');pup.classList.toggle('on',ph==='pup');bf.classList.toggle('on',ph==='bf');
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 })();
 
 /* ---- Nubes, pájaros y estrellitas ---- */

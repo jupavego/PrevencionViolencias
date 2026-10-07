@@ -70,7 +70,9 @@ h1,h2,h3,.pop{font-family:'Poppins','Nunito',sans-serif}
 .hdr .l1{height:56px} .hdr .l2{height:38px}
 .hdr .sep{width:2px;height:44px;background:var(--line)}
 .hdr .org{margin-left:auto;text-align:right;font-size:12px;line-height:1.3;color:var(--ink2);position:relative;z-index:3}
-.hdr .org b{display:block;font-family:'Poppins';font-size:13px;color:var(--gd)}
+.hdr .org b{font-family:'Poppins';font-size:13px;color:var(--gd)}
+.hdr .orgrow{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-bottom:1px}
+.hdr .vbar{display:inline-block;width:2px;height:15px;background:var(--g);border-radius:2px}
 .ttl{position:absolute;left:34px;top:100px;width:545px;z-index:2}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--gl);color:var(--gd);font-family:'Poppins';font-weight:700;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap}
 .ttl h1{font-size:28.5px;line-height:1.1;font-weight:800;color:var(--ink);margin:9px 0 7px;letter-spacing:-.01em}
@@ -104,7 +106,7 @@ def head(ch_roman, topic, title_html, question, hero_html=''):
   <img class="l1" src="img/logo-icbf.png" alt="ICBF Bienestar Familiar">
   <div class="sep"></div>
   <img class="l2" src="img/logo-bello.png" alt="Alcaldía de Bello">
-  <div class="org"><b>Regional Antioquia</b>Prevención de violencias · Primera infancia</div>
+  <div class="org"><div class="orgrow"><b>Regional Antioquia</b><i class="vbar"></i><b>CZ Aburrá Norte</b></div>Prevención de violencias · Primera infancia</div>
 </div>
 <div class="ttl">
   <span class="chip">Capítulo {ch_roman} · {topic}</span>
