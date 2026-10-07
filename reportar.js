@@ -29,7 +29,7 @@
 
   var HTML = '<div id="rp-box" role="dialog" aria-modal="true" aria-labelledby="rp-t"><div class="in">' +
     '<div id="rp-form"><h2 id="rp-t">Informar un caso</h2>' +
-    '<div class="warn">Si hay un <b>peligro inmediato</b>, llama al <b>123</b>. Para orientación y denuncias llama a la <a href="tel:141"><b>Línea 141</b></a> del ICBF (gratuita, 24 horas). Este formulario <b>no es un canal de atención inmediata</b> y no garantiza una respuesta.</div>' +
+    '<div class="warn">Si hay un <b>peligro inmediato</b>, llama al <b>123</b>. Para orientación y denuncias: <a href="tel:141"><b>Línea 141</b></a> del ICBF (gratuita, 24 horas), línea nacional <b>01 8000 91 8080</b>, WhatsApp <b>320 239 1685</b>, <b>320 293 1320</b> o <b>320 865 5450</b>, o <b>www.icbf.gov.co</b>. Si la víctima es una niña o una mujer y se trata de violencia de género, también la <b>Línea 155</b>. Este formulario <b>no es un canal de atención inmediata</b> y no garantiza una respuesta.</div>' +
     '<form id="rp-f" novalidate>' +
     '<label for="rp-rol">¿Quién informa?</label><select id="rp-rol"><option>Conozco o presencié un caso</option><option>Soy la persona afectada</option><option>Soy familiar o cuidador</option><option>Soy agente educativo o del servicio</option><option>Prefiero no decirlo</option></select>' +
     '<label for="rp-relato">¿Qué está ocurriendo? <small>(obligatorio; no escribas datos que no sean necesarios)</small></label><textarea id="rp-relato" maxlength="3000" required></textarea>' +

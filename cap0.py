@@ -82,7 +82,7 @@ def html():
     <div class="num" style="font-size:44px;color:#fff">141</div>
   </div>
   <div class="pop" style="font-size:13px;font-weight:700;margin-top:6px;line-height:1.2">Línea del ICBF · gratuita · 24 horas</div>
-  <p style="color:#e3f1d6;font-size:11.2px;margin-top:2px;line-height:1.3">Reporta o pide orientación ante cualquier situación que amenace a una niña o un niño.</p>
+  <p style="color:#e3f1d6;font-size:11.2px;margin-top:2px;line-height:1.3">Reporta o pide orientación. También: <b style="color:#fff">01 8000 91 8080</b>, WhatsApp <b style="color:#fff">320 239 1685</b> y <b style="color:#fff">www.icbf.gov.co</b>.</p>
 </div>
 <div class="src" style="bottom:6px;padding-top:4px"><b>Resumen de:</b> ICBF Regional Antioquia, presentación «Prevención de violencias», 2024; Ley 1098 de 2006; Ley 12 de 1991; Plan Nacional de Acción contra la Violencia 2021-2024; Política Nacional de Infancia y Adolescencia 2018-2030. Detalle y fuentes en cada capítulo.</div>'''
     css_extra = '<style>.m{font-size:11.6px;line-height:1.3;color:var(--ink2);padding-left:11px;position:relative}.m:before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:#9db98f}</style>'
