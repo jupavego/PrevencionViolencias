@@ -48,7 +48,7 @@ def ic(name, size=22, cls=''):
 CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap');
 :root{
-  --bg:#faf7ee; --ink:#0f3b34; --ink2:#35564f; --muted:#5f7a73;
+  --bg:#faf7ee; --ink:#0f3b34; --ink2:#35564f; --muted:#4a665f;
   --g:#5aa832; --gd:#1d6a3a; --gl:#e6f1dc; --gx:#f1f7ea;
   --blue:#0b4a8f; --bl:#e3edf8;
   --or:#f0a336; --orl:#fdf0dc; --tl:#1f7f8a; --tll:#e0f1f2;
@@ -71,11 +71,11 @@ h1,h2,h3,.pop{font-family:'Poppins','Nunito',sans-serif}
 .hdr .sep{width:2px;height:44px;background:var(--line)}
 .hdr .org{margin-left:auto;text-align:right;font-size:12px;line-height:1.3;color:var(--ink2);position:relative;z-index:3}
 .hdr .org b{display:block;font-family:'Poppins';font-size:13px;color:var(--gd)}
-.ttl{position:absolute;left:34px;top:100px;width:520px;z-index:2}
-.chip{display:inline-flex;align-items:center;gap:6px;background:var(--gl);color:var(--gd);font-family:'Poppins';font-weight:700;font-size:13px;letter-spacing:.06em;padding:5px 14px;border-radius:999px}
-.ttl h1{font-size:33px;line-height:1.08;font-weight:800;color:var(--ink);margin:9px 0 8px;letter-spacing:-.01em}
+.ttl{position:absolute;left:34px;top:100px;width:545px;z-index:2}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--gl);color:var(--gd);font-family:'Poppins';font-weight:700;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap}
+.ttl h1{font-size:28.5px;line-height:1.1;font-weight:800;color:var(--ink);margin:9px 0 7px;letter-spacing:-.01em}
 .ttl h1 em{font-style:normal;color:var(--g)}
-.ttl .q{font-size:15px;font-weight:700;color:var(--gd);line-height:1.3}
+.ttl .q{font-size:14.5px;font-weight:700;color:var(--gd);line-height:1.3}
 .ttl .bar{width:64px;height:5px;background:var(--gd);border-radius:3px;margin-top:10px}
 .hero{position:absolute;z-index:1}
 .card{position:absolute;background:#fff;border-radius:18px;box-shadow:0 1px 0 rgba(15,59,52,.05),0 6px 18px rgba(15,59,52,.07);padding:13px 15px}
@@ -85,13 +85,18 @@ h1,h2,h3,.pop{font-family:'Poppins','Nunito',sans-serif}
 .tint-g{background:var(--gx)} .tint-or{background:var(--orl)} .tint-tl{background:var(--tll)} .tint-pu{background:var(--pul)} .tint-pk{background:var(--pkl)} .tint-bl{background:var(--bl)}
 .pill{display:inline-block;font-size:11.2px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--gl);color:var(--gd)}
 .num{font-family:'Poppins';font-weight:800;color:var(--gd);line-height:1}
-.src{position:absolute;left:34px;right:34px;bottom:14px;font-size:9.6px;line-height:1.35;color:var(--muted);border-top:1px solid var(--line);padding-top:6px}
+.src{position:absolute;left:34px;right:34px;bottom:14px;font-size:10.2px;line-height:1.35;color:#3f5c55;border-top:1px solid var(--line);padding-top:6px}
 .src b{color:var(--ink2)}
 .q-quote{font-style:italic}
+.yr{margin-left:auto;font-size:10.5px;font-weight:800;background:#fff;border:1.5px solid currentColor;border-radius:99px;padding:1px 9px;white-space:nowrap;font-family:'Nunito',sans-serif}
+.rec{background:linear-gradient(100deg,#e7f3da,#fff6d9);border:2px solid #cfe3bf;display:flex;align-items:center;gap:13px;padding:8px 16px}
+.rec .lab{font-family:'Poppins';font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--gd);margin-bottom:1px}
+.rec p{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3}
+.rec p small{font-weight:600;color:var(--ink2);font-size:11.4px}
 """
 
 
-def head(ch_roman, title_html, question, hero_html=''):
+def head(ch_roman, topic, title_html, question, hero_html=''):
     return f'''
 <div class="dhex" style="right:-18px;top:-26px;width:110px;height:122px;background:#e3efd8;border:none;opacity:1"></div>
 <div class="dhex" style="right:80px;top:-34px;width:60px;height:66px"></div>
@@ -102,7 +107,7 @@ def head(ch_roman, title_html, question, hero_html=''):
   <div class="org"><b>Regional Antioquia</b>Prevención de violencias · Primera infancia</div>
 </div>
 <div class="ttl">
-  <span class="chip">CAPÍTULO {ch_roman}</span>
+  <span class="chip">Capítulo {ch_roman} · {topic}</span>
   <h1>{title_html}</h1>
   <div class="q">{question}</div>
   <div class="bar"></div>
@@ -119,3 +124,11 @@ def page(body, ch_roman):
 <body>{sprite()}
 <div class="page">{body}</div>
 </body></html>'''
+
+
+def recordar(top, text, h=58, left=34, width=748):
+    return f'''
+<div class="card rec" style="left:{left}px;top:{top}px;width:{width}px;height:{h}px">
+  <div class="hex hx-g" style="width:40px;height:45px">{ic('spark',21)}</div>
+  <div><div class="lab">PARA RECORDAR</div><p>{text}</p></div>
+</div>'''
