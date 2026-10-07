@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.vercel/
+_t_*.png
+_index_backup.html
+Thumbs.db
+~$*
