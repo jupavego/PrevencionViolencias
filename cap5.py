@@ -62,10 +62,12 @@ def html():
   <div class="hex" style="width:52px;height:58px;background:#fff;color:var(--gd)">{ic('phone',27)}</div>
   <div style="flex:1">
     <div class="pop" style="font-size:15px;font-weight:800;color:#fff;line-height:1.2">¿Conoces un caso o necesitas orientación? Línea 141 del ICBF</div>
-    <p style="color:#e3f1d6;font-size:12.4px;margin-top:3px">Gratuita, atiende las 24 horas, todos los días. Reporta maltrato infantil, violencia sexual u otras situaciones que amenacen los derechos de niñas, niños y adolescentes.</p>
+    <p style="color:#e3f1d6;font-size:12.4px;margin-top:3px">Gratuita, 24 horas, todos los días. Reporta maltrato infantil, violencia sexual u otras situaciones que amenacen a niñas, niños y adolescentes.</p>
   </div>
+  <button class="noexp" type="button" onclick="abrirReporteDesdeInfografia()"
+    style="flex:none;border:0;cursor:pointer;background:#e0507c;color:#fff;font:800 13px Poppins,Nunito,sans-serif;border-radius:14px;padding:9px 14px;line-height:1.2;box-shadow:0 4px 0 rgba(0,0,0,.2)">{ic('heart',18)}<br>Informar<br>un caso</button>
   <div class="num" style="color:#fff;font-size:42px">141</div>
 </div>
 {recordar(898, 'Si ves una señal de alerta, no la guardes: notifícala. <small>Cualquier persona puede exigir que se restablezcan los derechos de una niña o un niño (Ley 1098, art. 11).</small>', 84)}
 <div class="src" style="bottom:6px;padding-top:4px"><b>Fuentes:</b> ICBF Regional Antioquia, presentación «Prevención de violencias», 2024 (diap. 13, 18-25); Ley 1098 de 2006, arts. 7, 10 y 11; Ley 12 de 1991 (Convención), arts. 19 y 39; ICBF, Línea 141. PARD: Proceso Administrativo de Restablecimiento de Derechos. UDS: Unidad de Servicio.</div>'''
-    return page(body, 'V')
+    return page(body, 'V').replace('</body>', '<script src="reportar.js"></script></body>')

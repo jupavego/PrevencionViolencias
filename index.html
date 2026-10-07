@@ -75,6 +75,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .flower{position:absolute;bottom:5vh;z-index:4;width:26px;transform-origin:50% 100%;animation:sway 4.5s ease-in-out infinite;pointer-events:none}
 @keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 
+.reportb{position:fixed;right:2vw;bottom:2.2vh;z-index:9;display:flex;align-items:center;gap:9px;background:#e0507c;color:#fff;border-radius:999px;padding:11px 20px 11px 14px;
+  font-family:'Baloo 2','Nunito',sans-serif;font-weight:800;font-size:clamp(14px,1.25vw,18px);box-shadow:0 7px 0 rgba(120,20,60,.28);transition:transform .2s}
+.reportb:hover,.reportb:focus-visible{transform:translateY(-3px) scale(1.04)}
+.reportb svg{width:24px;height:24px}
 /* pasto y bichito */
 .grass{position:absolute;z-index:4;pointer-events:none;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite}
 #critter{position:absolute;z-index:6;left:0;bottom:0;width:0;height:0;pointer-events:none}
@@ -163,6 +167,8 @@ canvas#fx{position:fixed;inset:0;z-index:80;pointer-events:none}
 
 @media (max-width:760px){
   .sun{display:none}
+  .reportb{right:10px;bottom:10px;padding:9px 14px 9px 11px;font-size:13px}.reportb span small{display:none}
+  .stars{left:10px!important;transform:none!important}
   .stars{position:fixed;right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:10px;z-index:8}
   .title h1{font-size:clamp(30px,9.4vw,46px)}
   .title p{font-size:12px;padding:0 4vw}
@@ -272,7 +278,11 @@ canvas#fx{position:fixed;inset:0;z-index:80;pointer-events:none}
   <button class="nav next" id="next" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   <div class="dock" id="dock" aria-label="Ir a otra infografía"></div>
 </div>
+<button class="reportb" id="reportb" type="button" aria-label="Informar un caso">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>
+  <span>¿Conoces un caso? <small>Infórmalo</small></span></button>
 <canvas id="fx"></canvas>
+<script src="reportar.js"></script>
 
 <script>
 (function(){
@@ -539,6 +549,7 @@ var tx=0;
 viewer.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
 viewer.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx;if(scroller.scrollWidth>scroller.clientWidth+4)return;if(Math.abs(dx)>90)go(cur+(dx<0?1:-1))},{passive:true});
 
+$('#reportb').addEventListener('click',function(){window.abrirReporte&&window.abrirReporte()});
 layout();paintStars();setTimeout(drawRoute,300);
 var m=/cap=(\d)/.exec(location.hash);if(m&&PAGES[+m[1]])setTimeout(function(){openAt(+m[1],innerWidth/2,innerHeight/2);var y=/y=(\d+)/.exec(location.hash);if(y)setTimeout(function(){scroller.scrollTop=+y[1]},900)},400);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawRoute);
