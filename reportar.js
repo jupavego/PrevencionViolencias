@@ -71,13 +71,16 @@
       if (v('#rp-cuando')) lineas.push('Cuándo: ' + v('#rp-cuando'));
       if (v('#rp-nombre')) lineas.push('Nombre: ' + v('#rp-nombre'));
       ULTIMO = encodeURIComponent(lineas.join('\n'));
+      /* Reparte la carga: cada envío se dirige al azar a uno de los tres números oficiales. */
+      var elegido = Math.floor(Math.random() * NUMEROS.length);
+      var orden = NUMEROS.slice(elegido).concat(NUMEROS.slice(0, elegido));
       var box = $('#rp-links'); box.innerHTML = '';
-      NUMEROS.forEach(function (x) {
+      orden.forEach(function (x, k) {
         var a = document.createElement('a'); a.href = 'https://wa.me/' + x.n + '?text=' + ULTIMO; a.target = '_blank'; a.rel = 'noopener';
-        a.textContent = x.t; a.style.cssText = 'background:#e6f1dc;color:#1d6a3a;font-weight:800;border-radius:999px;padding:7px 14px;text-decoration:none;font-size:14px';
+        a.textContent = x.t + (k === 0 ? ' · abierto' : ''); a.style.cssText = (k === 0 ? 'background:#1d6a3a;color:#fff;' : 'background:#e6f1dc;color:#1d6a3a;') + 'font-weight:800;border-radius:999px;padding:7px 14px;text-decoration:none;font-size:14px';
         box.appendChild(a);
       });
-      window.open('https://wa.me/' + NUMEROS[0].n + '?text=' + ULTIMO, '_blank', 'noopener');
+      window.open('https://wa.me/' + orden[0].n + '?text=' + ULTIMO, '_blank', 'noopener');
       $('#rp-form').style.display = 'none'; $('#rp-done').style.display = 'block'; $('#rp-f').reset();
     });
   }
