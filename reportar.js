@@ -1,7 +1,11 @@
-/* Formulario "Informar un caso": ventana emergente compartida por la interfaz y el capítulo V. */
+/* Formulario "Informar un caso": ventana emergente compartida por la interfaz y el capítulo V.
+   Es un puente: arma el mensaje y abre WhatsApp (enlace wa.me) hacia uno de los números oficiales del ICBF.
+   La persona revisa el texto y lo envía desde su propio teléfono; nada pasa por servidores propios. */
 (function () {
   'use strict';
   var root = null;
+  var NUMEROS = [{ n: '573202391685', t: '320 239 1685' }, { n: '573202931320', t: '320 293 1320' }, { n: '573208655450', t: '320 865 5450' }];
+  var ULTIMO = '';
 
   var CSS = '#rp-back{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(15,59,52,.55);font-family:Nunito,"Segoe UI",system-ui,sans-serif}' +
     '#rp-back.open{display:flex}' +
@@ -29,20 +33,20 @@
 
   var HTML = '<div id="rp-box" role="dialog" aria-modal="true" aria-labelledby="rp-t"><div class="in">' +
     '<div id="rp-form"><h2 id="rp-t">Informar un caso</h2>' +
-    '<div class="warn">Si hay un <b>peligro inmediato</b>, llama al <b>123</b>. Para orientación y denuncias: <a href="tel:141"><b>Línea 141</b></a> del ICBF (gratuita, 24 horas), línea nacional <b>01 8000 91 8080</b>, WhatsApp <b>320 239 1685</b>, <b>320 293 1320</b> o <b>320 865 5450</b>, o <b>www.icbf.gov.co</b>. Si la víctima es una niña o una mujer y se trata de violencia de género, también la <b>Línea 155</b>. Este formulario <b>no es un canal de atención inmediata</b> y no garantiza una respuesta.</div>' +
+    '<div class="warn">Si hay un <b>peligro inmediato</b>, llama al <b>123</b>. También puedes llamar a la <a href="tel:141"><b>Línea 141</b></a> del ICBF (gratuita, 24 horas) o a la línea nacional <b>01 8000 91 8080</b>. Si es violencia de género contra una niña o una mujer, la <b>Línea 155</b>. Este formulario <b>solo prepara tu mensaje</b> para enviarlo por WhatsApp a un número oficial del ICBF: <b>no es un canal de atención inmediata</b> y no garantiza una respuesta.</div>' +
     '<form id="rp-f" novalidate>' +
     '<label for="rp-rol">¿Quién informa?</label><select id="rp-rol"><option>Conozco o presencié un caso</option><option>Soy la persona afectada</option><option>Soy familiar o cuidador</option><option>Soy agente educativo o del servicio</option><option>Prefiero no decirlo</option></select>' +
-    '<label for="rp-relato">¿Qué está ocurriendo? <small>(obligatorio; no escribas datos que no sean necesarios)</small></label><textarea id="rp-relato" maxlength="3000" required></textarea>' +
+    '<label for="rp-relato">¿Qué está ocurriendo? <small>(obligatorio, máx. 1.200 letras; incluye solo lo necesario)</small></label><textarea id="rp-relato" maxlength="1200" required></textarea>' +
     '<div class="row"><div><label for="rp-lugar">Lugar o municipio <small>(opcional)</small></label><input type="text" id="rp-lugar" maxlength="160"></div>' +
     '<div><label for="rp-cuando">¿Cuándo? <small>(opcional)</small></label><input type="text" id="rp-cuando" maxlength="120"></div></div>' +
-    '<div class="row"><div><label for="rp-nombre">Tu nombre <small>(opcional)</small></label><input type="text" id="rp-nombre" maxlength="120" autocomplete="name"></div>' +
-    '<div><label for="rp-contacto">Teléfono o correo <small>(opcional, solo si quieres que te contacten)</small></label><input type="text" id="rp-contacto" maxlength="160" autocomplete="off"></div></div>' +
-    '<div class="hp" aria-hidden="true"><label>No llenar<input type="text" id="rp-web" tabindex="-1" autocomplete="off"></label></div>' +
-    '<label class="ck"><input type="checkbox" id="rp-ok"><span>Entiendo que este formulario no es un canal de atención inmediata y acepto que mi mensaje se envíe por correo electrónico al equipo responsable.</span></label>' +
+    '<label for="rp-nombre">Tu nombre <small>(opcional)</small></label><input type="text" id="rp-nombre" maxlength="120" autocomplete="name">' +
+    '<label class="ck"><input type="checkbox" id="rp-ok"><span>Entiendo que este formulario no es un canal de atención inmediata y entiendo que, al enviarlo por WhatsApp, <b>el ICBF verá mi número de teléfono</b>. Yo decido si pulso «Enviar» en WhatsApp.</span></label>' +
     '<div class="msg" id="rp-msg" role="alert"></div>' +
-    '<div class="btns"><button type="button" class="cancel" id="rp-x">Cancelar</button><button type="submit" class="send" id="rp-s">Enviar</button></div></form></div>' +
-    '<div id="rp-done" class="ok" style="display:none"><div class="big">💚</div><h2>Gracias por informar</h2>' +
-    '<p style="font-size:14.5px;line-height:1.45;margin:8px 0 12px">Tu mensaje fue enviado. Si hay peligro inmediato llama al <b>123</b>; para orientación llama a la <b>Línea 141</b> del ICBF.</p>' +
+    '<div class="btns"><button type="button" class="cancel" id="rp-x">Cancelar</button><button type="submit" class="send" id="rp-s">Continuar en WhatsApp</button></div></form></div>' +
+    '<div id="rp-done" class="ok" style="display:none"><div class="big">💬</div><h2>Falta un paso: enviar en WhatsApp</h2>' +
+    '<p style="font-size:14.5px;line-height:1.45;margin:8px 0 10px">Abrimos WhatsApp con tu mensaje listo. <b>Revísalo y pulsa «Enviar» allá</b>: hasta entonces el ICBF no lo recibe.</p>' +
+    '<p style="font-size:13px;margin:0 0 6px">¿No se abrió? Elige un número oficial:</p><div id="rp-links" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div>' +
+    '<p style="font-size:12.5px;line-height:1.4;margin:12px 0 4px;color:#4a665f">Si hay peligro inmediato llama al <b>123</b>; para orientación, a la <b>Línea 141</b>.</p>' +
     '<div class="btns" style="justify-content:center"><button type="button" class="send" id="rp-c">Cerrar</button></div></div>' +
     '</div></div>';
 
@@ -56,20 +60,25 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.classList.contains('open')) { e.stopPropagation(); close(); } }, true);
     $('#rp-f').addEventListener('submit', function (e) {
       e.preventDefault();
-      var msg = $('#rp-msg'), btn = $('#rp-s'); msg.className = 'msg'; msg.textContent = '';
-      var data = { rol: $('#rp-rol').value, relato: $('#rp-relato').value, lugar: $('#rp-lugar').value, cuando: $('#rp-cuando').value,
-        nombre: $('#rp-nombre').value, contacto: $('#rp-contacto').value, web: $('#rp-web').value, acepto: $('#rp-ok').checked };
-      if (data.relato.trim().length < 20) { msg.className = 'msg err'; msg.textContent = 'Cuéntanos un poco más de lo que ocurre (mínimo 20 caracteres).'; $('#rp-relato').focus(); return; }
-      if (!data.acepto) { msg.className = 'msg err'; msg.textContent = 'Marca la casilla para poder enviar.'; return; }
-      btn.disabled = true; btn.textContent = 'Enviando…';
-      fetch('/api/reportar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, j: j }; }); })
-        .then(function (o) {
-          if (o.ok) { $('#rp-form').style.display = 'none'; $('#rp-done').style.display = 'block'; $('#rp-f').reset(); }
-          else { msg.className = 'msg err'; msg.textContent = (o.j && o.j.error) || 'No pudimos enviar el mensaje. Por favor llama a la Línea 141.'; }
-        })
-        .catch(function () { msg.className = 'msg err'; msg.textContent = 'Sin conexión. Por favor llama a la Línea 141.'; })
-        .then(function () { btn.disabled = false; btn.textContent = 'Enviar'; });
+      var msg = $('#rp-msg'); msg.className = 'msg'; msg.textContent = '';
+      var v = function (id) { return $(id).value.trim(); };
+      var relato = v('#rp-relato');
+      if (relato.length < 20) { msg.className = 'msg err'; msg.textContent = 'Cuéntanos un poco más de lo que ocurre (mínimo 20 caracteres).'; $('#rp-relato').focus(); return; }
+      if (!$('#rp-ok').checked) { msg.className = 'msg err'; msg.textContent = 'Marca la casilla para poder continuar.'; return; }
+      var lineas = ['Hola, quiero informar un caso. (Enviado desde las infografías de Prevención de violencias · ICBF Regional Antioquia | CZ Aburrá Norte)', '',
+        'Quién informa: ' + $('#rp-rol').value, 'Qué ocurre: ' + relato];
+      if (v('#rp-lugar')) lineas.push('Lugar: ' + v('#rp-lugar'));
+      if (v('#rp-cuando')) lineas.push('Cuándo: ' + v('#rp-cuando'));
+      if (v('#rp-nombre')) lineas.push('Nombre: ' + v('#rp-nombre'));
+      ULTIMO = encodeURIComponent(lineas.join('\n'));
+      var box = $('#rp-links'); box.innerHTML = '';
+      NUMEROS.forEach(function (x) {
+        var a = document.createElement('a'); a.href = 'https://wa.me/' + x.n + '?text=' + ULTIMO; a.target = '_blank'; a.rel = 'noopener';
+        a.textContent = x.t; a.style.cssText = 'background:#e6f1dc;color:#1d6a3a;font-weight:800;border-radius:999px;padding:7px 14px;text-decoration:none;font-size:14px';
+        box.appendChild(a);
+      });
+      window.open('https://wa.me/' + NUMEROS[0].n + '?text=' + ULTIMO, '_blank', 'noopener');
+      $('#rp-form').style.display = 'none'; $('#rp-done').style.display = 'block'; $('#rp-f').reset();
     });
   }
   function open() { build(); root.querySelector('#rp-form').style.display = ''; root.querySelector('#rp-done').style.display = 'none'; root.classList.add('open'); setTimeout(function () { root.querySelector('#rp-relato').focus(); }, 50); }
